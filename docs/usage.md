@@ -41,6 +41,8 @@ It's almost the same with the code above. The main difference is only the last c
 ```php
 <?php
 
-$rc_api->where('order-id', 'order-id-of-domainname')
-->where();
+$response = $rc_api
+->where('order-id', 'order-id-of-domainname')
+->where('ns', ['ns1.helloworld.com', 'ns2.helloworld.com'])
+->post('domain/modify-ns');
 ```
