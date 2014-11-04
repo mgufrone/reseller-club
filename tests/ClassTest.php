@@ -2,6 +2,12 @@
 use Gufy\ResellerClub\ResellerClub;
 class ClassTest extends \Orchestra\Testbench\TestCase
 {
+  public function getPackageProviders()
+  {
+    return [
+      'Gufy\ResellerClub\ResellerClubServiceProvider'
+    ];
+  }
   public function testFunctionality()
   {
     $class = new ResellerClub('user-id', 'api-key');
@@ -87,6 +93,28 @@ class ClassTest extends \Orchestra\Testbench\TestCase
       'status'=>'Active',
     ], $class->config('params'));
   }
+  public function testGetRCWithParams()
+  {
+    $class = new ResellerClub('user-id', 'api-key');
+    $class->pretend(false);
+    $this->assertTrue(!$class->config('pretend'));
+    $data = $class->from('domains/search')
+    ->where('no-of-records', 50)
+    ->where('page-no', 0)
+    ->where(array(
+      'order-by'=>'orderid',
+      'status'=>'Active'
+    ))
+    ->post();
+    $this->assertEquals('https://httpapi.com/api/domains/search.json', $class->config('url'));
+    $this->assertEquals('POST', $class->config('method'));
+    $this->assertEquals([
+      'no-of-records'=>50,
+      'page-no'=>0,
+      'order-by'=>'orderid',
+      'status'=>'Active',
+    ], $class->config('params'));
+  }
   public function testPostUrlWithParams()
   {
     $class = new ResellerClub('user-id', 'api-key');
@@ -108,5 +136,13 @@ class ClassTest extends \Orchestra\Testbench\TestCase
       'order-by'=>'orderid',
       'status'=>'Active',
     ], $class->config('params'));
+  }
+
+  public function testServiceProviders()
+  {
+    $class = app()->make('rc.api');
+    $config = app()->make('config');
+    $this->assertEquals($config->get('gufy/rc::auth-userid'), $class->config('auth-userid'));
+    $this->assertEquals($config->get('gufy/rc::api-key'), $class->config('api-key'));
   }
 }

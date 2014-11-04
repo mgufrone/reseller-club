@@ -18,7 +18,7 @@ class ResellerClubServiceProvider extends ServiceProvider {
 	 */
 	public function boot()
 	{
-		$this->package('gufy/reseller-club');
+		$this->package('gufy/reseller-club', 'gufy/rc');
 	}
 
 	/**
@@ -29,6 +29,18 @@ class ResellerClubServiceProvider extends ServiceProvider {
 	public function register()
 	{
 		//
+		$this->app['rc.api'] = $this->app->share(function($app){
+			$config = $app->make('config');
+			return new ResellerClub($config->get('gufy/rc::auth-userid'), $config->get('gufy/rc::api-key'));
+		});
+	  $loader = \Illuminate\Foundation\AliasLoader::getInstance();
+	  $aliases = \Config::get('app.aliases');
+
+	  // Alias the Datatable package
+	  if (empty($aliases['ResellerClub'])) {
+	      $loader->alias('ResellerClub', 'Gufy\ResellerClub\Facades\ResellerClubFacade');
+		}
+
 	}
 
 	/**

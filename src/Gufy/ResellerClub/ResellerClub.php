@@ -48,7 +48,7 @@ class ResellerClub
     if($this->config('pretend'))
       return [];
     $client = new Client;
-    $request = $client->request($method, $this->config('url'), [
+    $request = $client->createRequest($method, $this->config('url'), [
       'query'=>$this->config['params'],
     ]);
     try
@@ -59,8 +59,7 @@ class ResellerClub
     catch(\Exception $e)
     {
       return [
-        'code'=>$e->getResponse()->getStatusCode(),
-        'content'=>$e->getResponse()->getBody(),
+        'content'=>$e->getResponse(),
         'result'=>'error',
       ];
     }
