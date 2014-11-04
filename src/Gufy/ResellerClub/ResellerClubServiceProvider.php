@@ -48,9 +48,9 @@ class ResellerClubServiceProvider extends ServiceProvider {
 	 *
 	 * @return array
 	 */
-	public function provides()
-	{
-		return array();
-	}
+	// public function provides()
+	// {
+	// 	return array();
+	// }
 
 }

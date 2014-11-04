@@ -59,7 +59,7 @@ class ResellerClub
     catch(\Exception $e)
     {
       return [
-        'content'=>$e->getResponse(),
+        'content'=>(string)$e->getResponse(),
         'result'=>'error',
       ];
     }

@@ -145,4 +145,14 @@ class ClassTest extends \Orchestra\Testbench\TestCase
     $this->assertEquals($config->get('gufy/rc::auth-userid'), $class->config('auth-userid'));
     $this->assertEquals($config->get('gufy/rc::api-key'), $class->config('api-key'));
   }
+  public function testFacades()
+  {
+    $config = app()->make('config');
+
+    $this->assertEquals($config->get('gufy/rc::auth-userid'), \ResellerClub::config('auth-userid'));
+    $this->assertEquals($config->get('gufy/rc::api-key'), \ResellerClub::config('api-key'));
+    $response = \ResellerClub::where('no-of-records', 50)->get('domains/search.json');
+    $params = \ResellerClub::config('params');
+    $this->assertEquals(50, $params['no-of-records']);
+  }
 }
