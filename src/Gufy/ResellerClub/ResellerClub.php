@@ -47,18 +47,27 @@ class ResellerClub
       $this->config('params', []);
     if($this->config('pretend'))
       return [];
-    $client = new Client;
-    $request = $client->createRequest($method, $this->config('url'), [
-      'query'=>$this->config('params'),
-    ]);
     try
     {
+      $client = new Client;
+      $request = $client->createRequest($method, $this->config('url'), [
+        'query'=>$this->config('params'),
+      ]);
       $query = $request->getQuery();
       $query->setAggregator($query::duplicateAggregator());
       $response = $client->send($request);
       return $response->json();
     }
     catch(\GuzzleHttp\Exception\ConnectException $e)
+    {
+      return [
+        'content'=>(string)$e->getMessage(),
+        'result'=>'error',
+        'url'=>$e->getRequest()->getUrl(),
+        // 'request'=>$e->getRequest()->getUrl(),
+      ];
+    }
+    catch(\GuzzleHttp\Exception\RequestException $e)
     {
       return [
         'content'=>(string)$e->getMessage(),

@@ -157,4 +157,17 @@ class ClassTest extends \Orchestra\Testbench\TestCase
     $params = \ResellerClub::config('params');
     $this->assertEquals(50, $params['no-of-records']);
   }
+  public function testErrorClass()
+  {
+    $config = app()->make('config');
+
+    $this->assertEquals($config->get('gufy/rc::auth-userid'), \ResellerClub::config('auth-userid'));
+    $this->assertEquals($config->get('gufy/rc::api-key'), \ResellerClub::config('api-key'));
+    $response = \ResellerClub::where('no-of-records', 50)
+    ->where('ns', ['ns.helloworld.com', 'ns2.helloworld.com'])
+    ->get();
+    $params = \ResellerClub::config('params');
+    $this->assertEquals('error', $response['result']);
+    $this->assertEquals(50, $params['no-of-records']);
+  }
 }
