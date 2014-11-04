@@ -6,7 +6,7 @@
 
 ## User Guide
 - [Overview](overview.md)
-  - [Installation](overview.md#installation)
+    - [Installation](overview.md#installation)
 - [Usage](usage.md)
-  - [Get Data from ResellerClub](usage.md#get-data-from-resellerclub)
-  - [Post Data to ResellerClub](usage.md#post-data-to-resellerclub)
+    - [Get Data from ResellerClub](usage.md#get-data-from-resellerclub)
+    - [Post Data to ResellerClub](usage.md#post-data-to-resellerclub)
