@@ -1,4 +1,5 @@
 # ResellerClub PHP Api - Usage
+Before you go further, please read [ResellerClub Api Documentation](http://manage.resellerclub.com/kb/answer/744). Make sure you follow all of stuff you need to do before make any api call requests.
 
 ## Load ResellerClub Class
 
