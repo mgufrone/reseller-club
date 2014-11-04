@@ -52,3 +52,6 @@ Coming Soon
 
 ## Silex
 Coming Soon
+
+## Panada
+Coming Soon

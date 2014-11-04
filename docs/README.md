@@ -16,3 +16,4 @@
     - [Yii2](framework.md#yii)
     - [Symfony](framework.md#silex)
     - [Silex](framework.md#silex)
+    - [Panada](framework.md#panada)
