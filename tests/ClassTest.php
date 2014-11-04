@@ -151,8 +151,11 @@ class ClassTest extends \Orchestra\Testbench\TestCase
 
     $this->assertEquals($config->get('gufy/rc::auth-userid'), \ResellerClub::config('auth-userid'));
     $this->assertEquals($config->get('gufy/rc::api-key'), \ResellerClub::config('api-key'));
-    $response = \ResellerClub::where('no-of-records', 50)->get('domains/search.json');
+    $response = \ResellerClub::where('no-of-records', 50)
+    ->where('ns', ['ns.helloworld.com', 'ns2.helloworld.com'])
+    ->get('domains/search.json');
     $params = \ResellerClub::config('params');
+    print_r($response);
     $this->assertEquals(50, $params['no-of-records']);
   }
 }

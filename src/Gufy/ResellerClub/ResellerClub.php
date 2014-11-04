@@ -49,18 +49,31 @@ class ResellerClub
       return [];
     $client = new Client;
     $request = $client->createRequest($method, $this->config('url'), [
-      'query'=>$this->config['params'],
+      'query'=>$this->config('params'),
     ]);
     try
     {
+      $query = $request->getQuery();
+      $query->setAggregator($query::duplicateAggregator());
       $response = $client->send($request);
       return $response->json();
+    }
+    catch(\GuzzleHttp\Exception\ConnectException $e)
+    {
+      return [
+        'content'=>(string)$e->getMessage(),
+        'result'=>'error',
+        'url'=>$e->getRequest()->getUrl(),
+        // 'request'=>$e->getRequest()->getUrl(),
+      ];
     }
     catch(\Exception $e)
     {
       return [
         'content'=>(string)$e->getResponse(),
+        'class'=>get_class($e),
         'result'=>'error',
+        // 'request'=>$e->getRequest()->getUrl(),
       ];
     }
   }
