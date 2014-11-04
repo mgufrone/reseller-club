@@ -67,15 +67,6 @@ class ResellerClub
         // 'request'=>$e->getRequest()->getUrl(),
       ];
     }
-    catch(\Exception $e)
-    {
-      return [
-        'content'=>(string)$e->getResponse(),
-        'class'=>get_class($e),
-        'result'=>'error',
-        // 'request'=>$e->getRequest()->getUrl(),
-      ];
-    }
   }
 
   public function where($name, $value='')

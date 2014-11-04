@@ -155,7 +155,6 @@ class ClassTest extends \Orchestra\Testbench\TestCase
     ->where('ns', ['ns.helloworld.com', 'ns2.helloworld.com'])
     ->get('domains/search.json');
     $params = \ResellerClub::config('params');
-    print_r($response);
     $this->assertEquals(50, $params['no-of-records']);
   }
 }
